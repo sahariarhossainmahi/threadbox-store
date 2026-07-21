@@ -14,183 +14,501 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
 <body>
 
     <!-- Navbar -->
     <header>
-        
+
         <header class="header">
 
-    <div class="container nav">
+            <div class="container nav">
 
-        <div class="logo">
-            <a href="#">ThreadBox</a>
-        </div>
+                <div class="logo">
+                    <a href="#">ThreadBox</a>
+                </div>
 
-        <nav class="navbar">
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Men</a></li>
-                <li><a href="#">Women</a></li>
-                <li><a href="#">Gift Box</a></li>
-                <li><a href="#">Accessories</a></li>
-                <li><a href="#">Sale</a></li>
-            </ul>
-        </nav>
+                <nav class="navbar">
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li class="dropdown">
+                            <a href="#men-sizes">Men <i class="fa-solid fa-chevron-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#men-sizes" onclick="filterSize('all')">All Sizes</a></li>
+                                <li><a href="#men-sizes" onclick="filterSize('m')">Size M</a></li>
+                                <li><a href="#men-sizes" onclick="filterSize('l')">Size L</a></li>
+                                <li><a href="#men-sizes" onclick="filterSize('xl')">Size XL</a></li>
+                                <li><a href="#men-sizes" onclick="filterSize('xxl')">Size XXL</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#gift-box">Gift Box</a></li>
+                        <li><a href="#accessories">Accessories</a></li>
+                        <li><a href="#sale">Sale</a></li>
+                    </ul>
+                </nav>
 
-        <div class="nav-icons">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <i class="fa-regular fa-heart"></i>
-            <i class="fa-solid fa-cart-shopping"></i>
-            <i class="fa-regular fa-user"></i>
-        </div>
+                <div class="nav-icons">
+                    <i class="fa-solid fa-magnifying-glass" id="search-icon"></i>
+                    <div class="icon-badge-wrapper" id="wishlist-icon">
+                        <i class="fa-regular fa-heart"></i>
+                        <span class="badge-count" id="wishlist-count">0</span>
+                    </div>
+                    <div class="icon-badge-wrapper" id="cart-icon">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span class="badge-count" id="cart-count">0</span>
+                    </div>
+                    <i class="fa-regular fa-user" id="user-icon"></i>
+                </div>
 
-    </div>
+            </div>
 
-</header>
+        </header>
 
     </header>
 
     <section class="hero">
 
-    <div class="container hero-container">
+        <div class="container hero-container">
 
-        <div class="hero-text">
+            <div class="hero-text">
 
-            <p class="sub-title">NEW COLLECTION</p>
+                <p class="sub-title">NEW COLLECTION</p>
 
-            <h1>
-                SUMMER <br>
-                ESSENTIALS
-            </h1>
+                <h1>
+                    SUMMER <br>
+                    ESSENTIALS
+                </h1>
 
-            <p>
-                Discover premium fashion collections and exclusive gift boxes
-                designed for every occasion.
-            </p>
+                <p>
+                    Discover premium fashion collections and exclusive gift boxes
+                    designed for every occasion.
+                </p>
 
-            <a href="#" class="btn">
-                Shop Now
-            </a>
+                <a href="#" class="btn">
+                    Shop Now
+                </a>
+
+            </div>
+
+            <div class="hero-image">
+
+                <img src="https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1000w,f_avif,q_auto:eco,dpr_2/newscms/2018_51/1396260/zara-catalog-today-main-181219.jpg"
+                    alt="Hero Image">
+
+            </div>
 
         </div>
 
-        <div class="hero-image">
-
-            <img src="https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1000w,f_avif,q_auto:eco,dpr_2/newscms/2018_51/1396260/zara-catalog-today-main-181219.jpg" alt="Hero Image">
-
-        </div>
-
-    </div>
-
-</section>
+    </section>
 
     <!-- Gift Box -->
-    <section class="gift-box">
-
+    <section id="gift-box" class="gift-box">
+        <div class="container">
+            <h2 class="section-title">Exclusive Gift Boxes</h2>
+            <p class="section-subtitle">Specially curated selections for every celebration and occasion</p>
+            <div class="gift-grid">
+                <div class="gift-card">
+                    <div class="gift-image-container">
+                        <img src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=650&q=80"
+                            alt="Signature Gift Box">
+                        <span class="gift-badge">Best Seller</span>
+                    </div>
+                    <div class="gift-content">
+                        <h3>Signature Box</h3>
+                        <p>Luxury assortment of gourmet chocolate, custom mug, and scented candles.</p>
+                        <span class="gift-price">$89.99</span>
+                        <button class="gift-btn">Customize Box</button>
+                    </div>
+                </div>
+                <div class="gift-card">
+                    <div class="gift-image-container">
+                        <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=650&q=80"
+                            alt="Spa Day Gift Box">
+                        <span class="gift-badge">Trending</span>
+                    </div>
+                    <div class="gift-content">
+                        <h3>Spa Day Experience</h3>
+                        <p>Unwind with organic essential oils, body scrub, and plush towels.</p>
+                        <span class="gift-price">$75.00</span>
+                        <button class="gift-btn">Customize Box</button>
+                    </div>
+                </div>
+                <div class="gift-card">
+                    <div class="gift-image-container">
+                        <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=650&q=80"
+                            alt="Coffee Expert Gift Box">
+                    </div>
+                    <div class="gift-content">
+                        <h3>Gourmet Coffee Box</h3>
+                        <p>A handpicked selection of single-origin coffee beans, press, and scoop.</p>
+                        <span class="gift-price">$60.00</span>
+                        <button class="gift-btn">Customize Box</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section class="categories">
 
-    <div class="container">
+        <div class="container">
 
-        <h2 class="section-title">Shop By Category</h2>
+            <h2 class="section-title">Shop By Category</h2>
 
-        <div class="category-grid">
+            <div class="category-grid">
 
-            <div class="category-card">
-                <img src="images/men.jpg" alt="Men">
-                <h3>Men</h3>
-            </div>
+                <div class="category-card">
+                    <img src="images/men.jpg" alt="Men">
+                    <h3>Men</h3>
+                </div>
 
-            <div class="category-card">
-                <img src="images/women.png" alt="Women">
-                <h3>Women</h3>
-            </div>
-
-            <div class="category-card">
-                <img src="images/giftbox.jpg" alt="Gift Box">
-                <h3>Gift Box</h3>
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-<section class="products">
-
-    <div class="container">
-
-        <h2 class="section-title">Featured Products</h2>
-
-        <div class="product-grid">
-
-            <div class="product-card">
-
-                <img src="images/products/product1.jpg" alt="Product">
-
-                <h3>Oversized Hoodie</h3>
-
-                <p>$49.99</p>
-
-                <button>Add To Cart</button>
-
-            </div>
-
-            <div class="product-card">
-
-                <img src="images/products/product2.jpg" alt="Product">
-
-                <h3>Premium T-Shirt</h3>
-
-                <p>$29.99</p>
-
-                <button>Add To Cart</button>
-
-            </div>
-
-            <div class="product-card">
-
-                <img src="images/products/product3.jpg" alt="Product">
-
-                <h3>Varsity Jacket</h3>
-
-                <p>$69.99</p>
-
-                <button>Add To Cart</button>
-
-            </div>
-
-            <div class="product-card">
-
-                <img src="images/products/product4.jpg" alt="Product">
-
-                <h3>Sneakers</h3>
-
-                <p>$79.99</p>
-
-                <button>Add To Cart</button>
+                <div class="category-card">
+                    <img src="images/giftbox.jpg" alt="Gift Box">
+                    <h3>Gift Box</h3>
+                </div>
 
             </div>
 
         </div>
 
-    </div>
+    </section>
 
-</section>
+    <!-- Men's Sizes / Sub-sections -->
+    <section id="men-sizes" class="men-sizes-section">
+        <div class="container">
+            <h2 class="section-title">Shop Men By Size</h2>
+            <div class="size-grid">
+                <div class="size-card" onclick="filterSize('m')">
+                    <div class="size-card-content">
+                        <span class="size-letter">M</span>
+                        <h3>Size M</h3>
+                        <p>Medium Fit Collection</p>
+                    </div>
+                </div>
+                <div class="size-card" onclick="filterSize('l')">
+                    <div class="size-card-content">
+                        <span class="size-letter">L</span>
+                        <h3>Size L</h3>
+                        <p>Large Fit Collection</p>
+                    </div>
+                </div>
+                <div class="size-card" onclick="filterSize('xl')">
+                    <div class="size-card-content">
+                        <span class="size-letter">XL</span>
+                        <h3>Size XL</h3>
+                        <p>Extra Large Collection</p>
+                    </div>
+                </div>
+                <div class="size-card" onclick="filterSize('xxl')">
+                    <div class="size-card-content">
+                        <span class="size-letter">XXL</span>
+                        <h3>Size XXL</h3>
+                        <p>Double Extra Large</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="products">
+
+        <div class="container">
+
+            <h2 class="section-title">Featured Products</h2>
+
+            <div class="product-grid">
+
+                <div class="product-card" data-size="m">
+
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=600&q=80"
+                            alt="Oversized Hoodie">
+                        <span class="product-size-badge">Size M</span>
+                    </div>
+
+                    <h3>Oversized Hoodie</h3>
+
+                    <p>$49.99</p>
+
+                    <button>Add To Cart</button>
+
+                </div>
+
+                <div class="product-card" data-size="l">
+
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80"
+                            alt="Premium T-Shirt">
+                        <span class="product-size-badge">Size L</span>
+                    </div>
+
+                    <h3>Premium T-Shirt</h3>
+
+                    <p>$29.99</p>
+
+                    <button>Add To Cart</button>
+
+                </div>
+
+                <div class="product-card" data-size="xl">
+
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=600&q=80"
+                            alt="Varsity Jacket">
+                        <span class="product-size-badge">Size XL</span>
+                    </div>
+
+                    <h3>Varsity Jacket</h3>
+
+                    <p>$69.99</p>
+
+                    <button>Add To Cart</button>
+
+                </div>
+
+                <div class="product-card" data-size="xxl">
+
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=600&q=80"
+                            alt="Sneakers">
+                        <span class="product-size-badge">Size XXL</span>
+                    </div>
+
+                    <h3>Sneakers</h3>
+
+                    <p>$79.99</p>
+
+                    <button>Add To Cart</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Accessories Section -->
+    <section id="accessories" class="accessories-section">
+        <div class="container">
+            <h2 class="section-title">Accessories Collection</h2>
+            <p class="section-subtitle">Sophisticated details that elevate your look</p>
+            <div class="accessories-grid">
+                <div class="accessory-card">
+                    <img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=600&q=80"
+                        alt="Leather Wallet">
+                    <div class="accessory-info">
+                        <h3>Minimalist Leather Wallet</h3>
+                        <p class="accessory-price">$35.00</p>
+                    </div>
+                </div>
+                <div class="accessory-card">
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80"
+                        alt="Classic Watch">
+                    <div class="accessory-info">
+                        <h3>Classic Chronograph Watch</h3>
+                        <p class="accessory-price">$120.00</p>
+                    </div>
+                </div>
+                <div class="accessory-card">
+                    <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=600&q=80"
+                        alt="Sunglasses">
+                    <div class="accessory-info">
+                        <h3>Polarized Aviator Sunglasses</h3>
+                        <p class="accessory-price">$45.00</p>
+                    </div>
+                </div>
+                <div class="accessory-card">
+                    <img src="https://images.unsplash.com/photo-1524498250077-390f9e378fc0?auto=format&fit=crop&w=600&q=80"
+                        alt="Classic Belt">
+                    <div class="accessory-info">
+                        <h3>Split-Leather Dress Belt</h3>
+                        <p class="accessory-price">$29.99</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sale Banner Section -->
+    <section id="sale" class="sale-section">
+        <div class="container sale-container">
+            <div class="sale-content">
+                <span class="sale-badge">LIMITED TIME OFFER</span>
+                <h2>END OF SEASON SALE</h2>
+                <h1>UP TO 50% OFF</h1>
+                <p>Upgrade your wardrobe and lifestyle details. Exclusive online discounts automatically applied at
+                    checkout.</p>
+                <div class="sale-countdown">
+                    <div class="time-block"><span>24</span>
+                        <p>Hours</p>
+                    </div>
+                    <div class="time-block"><span>59</span>
+                        <p>Mins</p>
+                    </div>
+                    <div class="time-block"><span>59</span>
+                        <p>Secs</p>
+                    </div>
+                </div>
+                <a href="#products" onclick="filterSize('all')" class="btn sale-btn">Shop The Sale</a>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
-    <footer>
-
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-col brand-col">
+                <a href="#" class="footer-logo">ThreadBox</a>
+                <p>Premium clothing, customized gift boxes, and unique accessories crafted for styling the modern life.
+                </p>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-pinterest-p"></i></a>
+                </div>
+            </div>
+            <div class="footer-col links-col">
+                <h4>Quick Shop</h4>
+                <ul>
+                    <li><a href="#men-sizes">Men's Collection</a></li>
+                    <li><a href="#">Gift Boxes</a></li>
+                    <li><a href="#">Accessories</a></li>
+                    <li><a href="#">Sale & Offers</a></li>
+                </ul>
+            </div>
+            <div class="footer-col links-col">
+                <h4>Customer Support</h4>
+                <ul>
+                    <li><a href="#">Track Order</a></li>
+                    <li><a href="#">Shipping & Returns</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col newsletter-col">
+                <h4>Stay Connected</h4>
+                <p>Subscribe to receive emails about new arrivals, sales, and special offers.</p>
+                <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed successfully!');">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container footer-bottom-container">
+                <p>&copy; 2026 ThreadBox. All Rights Reserved.</p>
+                <p>Designed with <i class="fa-solid fa-heart" style="color: #b88a44;"></i> for a modern shop experience.
+                </p>
+            </div>
+        </div>
     </footer>
+
+    <!-- Overlay Backdrop -->
+    <div class="overlay-backdrop" id="overlay-backdrop"></div>
+
+    <!-- Cart Drawer -->
+    <div class="cart-drawer" id="cart-drawer">
+        <div class="drawer-header">
+            <h3><i class="fa-solid fa-cart-shopping"></i> Shopping Cart</h3>
+            <button class="drawer-close" id="cart-close">&times;</button>
+        </div>
+        <div class="drawer-body" id="cart-items">
+            <div class="drawer-empty">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <p>Your cart is empty</p>
+            </div>
+        </div>
+        <div class="drawer-footer">
+            <div class="cart-subtotal">
+                <span>Subtotal</span>
+                <span id="cart-subtotal">৳0.00</span>
+            </div>
+            <button class="checkout-btn" id="checkout-btn" disabled>Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="checkout-modal" id="checkout-modal">
+        <div class="checkout-content">
+            <div class="checkout-header">
+                <h3>Checkout</h3>
+                <button class="drawer-close" id="checkout-close">&times;</button>
+            </div>
+            <div class="checkout-body">
+                <div class="checkout-summary">
+                    <h4>Order Summary</h4>
+                    <div id="checkout-items-list"></div>
+                    <div class="checkout-total">
+                        <span>Total</span>
+                        <span id="checkout-total">৳0.00</span>
+                    </div>
+                </div>
+                <div class="payment-section">
+                    <h4>Select Payment Method</h4>
+                    <div class="payment-options">
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="bkash">
+                            <div class="payment-card">
+                                <div class="payment-logo bkash-logo">bKash</div>
+                                <span>Mobile Payment</span>
+                            </div>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="nagad">
+                            <div class="payment-card">
+                                <div class="payment-logo nagad-logo">Nagad</div>
+                                <span>Digital Payment</span>
+                            </div>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="cod">
+                            <div class="payment-card">
+                                <div class="payment-logo cod-logo"><i class="fa-solid fa-truck"></i></div>
+                                <span>Cash on Delivery</span>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="payment-details" id="payment-details" style="display:none;">
+                        <div id="bkash-details" style="display:none;">
+                            <p class="payment-instruction">Send money to: <strong>01XXXXXXXXX</strong></p>
+                            <input type="text" placeholder="Enter bKash Transaction ID" id="bkash-txn"
+                                class="payment-input">
+                        </div>
+                        <div id="nagad-details" style="display:none;">
+                            <p class="payment-instruction">Send money to: <strong>01XXXXXXXXX</strong></p>
+                            <input type="text" placeholder="Enter Nagad Transaction ID" id="nagad-txn"
+                                class="payment-input">
+                        </div>
+                        <div id="cod-details" style="display:none;">
+                            <p class="payment-instruction"><i class="fa-solid fa-circle-check"
+                                    style="color:#27ae60;"></i> Pay when you receive your order at your doorstep.</p>
+                            <input type="text" placeholder="Enter your delivery address" id="cod-address"
+                                class="payment-input">
+                        </div>
+                    </div>
+                    <button class="place-order-btn" id="place-order-btn" disabled>Place Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Confirmation Modal -->
+    <div class="order-confirm-modal" id="order-confirm-modal">
+        <div class="order-confirm-content">
+            <i class="fa-solid fa-circle-check"></i>
+            <h2>Order Placed!</h2>
+            <p id="confirm-message">Your order has been placed successfully.</p>
+            <button class="btn" id="confirm-close-btn">Continue Shopping</button>
+        </div>
+    </div>
 
     <!-- JS -->
     <script src="assets/js/script.js"></script>
