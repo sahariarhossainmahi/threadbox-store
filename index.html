@@ -319,6 +319,16 @@
                         <span id="checkout-total">৳0.00</span>
                     </div>
                 </div>
+
+                <!-- Customer Details Section -->
+                <div class="customer-info-section">
+                    <h4>Delivery Details</h4>
+                    <input type="text" id="cust-name" class="payment-input" placeholder="Full Name *" required>
+                    <input type="tel" id="cust-phone" class="payment-input" placeholder="Phone Number *" required>
+                    <textarea id="cust-address" class="payment-input" placeholder="Full Delivery Address *" rows="2"
+                        required></textarea>
+                </div>
+
                 <div class="payment-section">
                     <h4>Select Payment Method</h4>
                     <div class="payment-options">
@@ -358,8 +368,6 @@
                         <div id="cod-details" style="display:none;">
                             <p class="payment-instruction"><i class="fa-solid fa-circle-check"
                                     style="color:#27ae60;"></i> Pay when you receive your order at your doorstep.</p>
-                            <input type="text" placeholder="Enter your delivery address" id="cod-address"
-                                class="payment-input">
                         </div>
                     </div>
                     <button class="place-order-btn" id="place-order-btn" disabled>Place Order</button>
@@ -368,13 +376,18 @@
         </div>
     </div>
 
-    <!-- Order Confirmation Modal -->
+    <!-- Order Confirmation Modal (Receipt) -->
     <div class="order-confirm-modal" id="order-confirm-modal">
-        <div class="order-confirm-content">
+        <div class="order-confirm-content" id="receipt-content">
             <i class="fa-solid fa-circle-check"></i>
             <h2>Order Placed!</h2>
-            <p id="confirm-message">Your order has been placed successfully.</p>
-            <button class="btn" id="confirm-close-btn">Continue Shopping</button>
+            <p id="confirm-message" style="margin-bottom: 10px;">Your order has been placed successfully.</p>
+
+            <div class="receipt-box" id="receipt-box">
+                <!-- Receipt details go here -->
+            </div>
+
+            <button class="btn" id="confirm-close-btn" style="margin-top:20px; width:100%;">Continue Shopping</button>
         </div>
     </div>
 

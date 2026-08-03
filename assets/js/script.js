@@ -288,58 +288,77 @@ document.querySelectorAll('input[name="payment"]').forEach(radio => {
 });
 
 // ============================================
-// PLACE ORDER  (saves to backend)
+// PLACE ORDER (Saves to backend)
 // ============================================
 placeOrderBtn.addEventListener('click', async function () {
+    const custName = document.getElementById('cust-name').value.trim();
+    const custPhone = document.getElementById('cust-phone').value.trim();
+    const custAddress = document.getElementById('cust-address').value.trim();
+
+    if (!custName || !custPhone || !custAddress) {
+        alert("Please fill in all your Delivery Details (Name, Phone, Address).");
+        return;
+    }
+
     const selectedPayment = document.querySelector('input[name="payment"]:checked');
     if (!selectedPayment) return;
 
     const method = selectedPayment.value;
     let txnRef = '';
-    let message = '';
 
     if (method === 'bkash') {
         txnRef = document.getElementById('bkash-txn').value.trim();
         if (!txnRef) { alert('Please enter your bKash Transaction ID.'); return; }
-        message = `Your order has been placed successfully via bKash.\nTransaction ID: ${txnRef}\nWe will verify your payment and confirm shortly.`;
     } else if (method === 'nagad') {
         txnRef = document.getElementById('nagad-txn').value.trim();
         if (!txnRef) { alert('Please enter your Nagad Transaction ID.'); return; }
-        message = `Your order has been placed successfully via Nagad.\nTransaction ID: ${txnRef}\nWe will verify your payment and confirm shortly.`;
     } else if (method === 'cod') {
-        txnRef = document.getElementById('cod-address').value.trim();
-        if (!txnRef) { alert('Please enter your delivery address.'); return; }
-        message = `Your order has been placed with Cash on Delivery.\nDelivery Address: ${txnRef}\nPay when you receive your order.`;
+        txnRef = "Cash on Delivery";
     }
 
     const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
     const orderPayload = {
+        customer: { name: custName, phone: custPhone, address: custAddress },
         items: cart.map(i => ({ name: i.name, size: i.size, qty: i.qty, price: i.price })),
         total: parseFloat(total.toFixed(2)),
         paymentMethod: method,
         transactionRef: txnRef,
     };
 
-    // Save order to backend (non-blocking — store will work even if server is offline)
+    // Save to Backend
     try {
         await fetch('http://localhost:3000/api/orders', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(orderPayload)
         });
-    } catch { /* server not running — order still shown to customer */ }
+    } catch { console.error("Order save failed"); }
 
-    // Close checkout, show order confirmation
+    // Close checkout, Show Receipt Complete
     closeCheckoutModal();
-    confirmMessage.textContent = message;
+
+    // Render Receipt Box
+    const receiptBox = document.getElementById('receipt-box');
+    const orderDate = new Date().toLocaleDateString('en-GB');
+    receiptBox.innerHTML = `
+        <div class="receipt-row"><span class="receipt-label">Name:</span> <span class="receipt-value">${custName}</span></div>
+        <div class="receipt-row"><span class="receipt-label">Phone:</span> <span class="receipt-value">${custPhone}</span></div>
+        <div class="receipt-row"><span class="receipt-label">Address:</span> <span class="receipt-value">${custAddress}</span></div>
+        <div class="receipt-row"><span class="receipt-label">Payment:</span> <span class="receipt-value">${method.toUpperCase()}</span></div>
+        <div class="receipt-row"><span class="receipt-label">Date:</span> <span class="receipt-value">${orderDate}</span></div>
+        <div class="receipt-row"><span class="receipt-label">Total Amount:</span> <span class="receipt-value" style="font-weight:bold;color:#b88a44;">৳${total.toFixed(2)}</span></div>
+    `;
+
     orderConfirmModal.classList.add('active');
 
-    // Clear cart & inputs
+    // Clear cart and inputs
     cart = [];
     updateCartUI();
+    document.getElementById('cust-name').value = '';
+    document.getElementById('cust-phone').value = '';
+    document.getElementById('cust-address').value = '';
     document.getElementById('bkash-txn').value = '';
     document.getElementById('nagad-txn').value = '';
-    document.getElementById('cod-address').value = '';
 });
 
 // Close order confirmation

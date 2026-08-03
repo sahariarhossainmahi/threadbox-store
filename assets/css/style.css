@@ -1404,6 +1404,57 @@ html {
     line-height: 1.6;
 }
 
+/* Customer & Receipt Styles */
+.customer-info-section {
+    padding: 20px;
+    background: #fafafa;
+    border-bottom: 1px solid #ddd;
+}
+
+.customer-info-section h4 {
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #111;
+}
+
+#receipt-content {
+    max-width: 450px;
+}
+
+.receipt-box {
+    background: #fdfdfd;
+    border: 1px dashed #b88a44;
+    padding: 15px;
+    text-align: left;
+    margin-bottom: 15px;
+    font-size: 14px;
+    border-radius: 8px;
+    color: #333;
+}
+
+.receipt-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px dashed #eee;
+}
+
+.receipt-row:last-child {
+    border-bottom: none;
+}
+
+.receipt-label {
+    font-weight: 600;
+    color: #555;
+    width: 100px;
+}
+
+.receipt-value {
+    color: #111;
+    flex: 1;
+    word-break: break-all;
+}
+
 /* Responsive */
 @media (max-width: 576px) {
     .payment-options {

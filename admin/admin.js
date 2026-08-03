@@ -376,9 +376,26 @@ async function loadOrders() {
         tbody.innerHTML = orders.map(o => {
             const itemsSummary = (o.items || []).map(i => `${i.name} ×${i.qty}`).join(', ') || 'N/A';
             const date = new Date(o.createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+
+            const cName = o.customer?.name || 'N/A';
+            const cPhone = o.customer?.phone || 'N/A';
+            const cAddress = o.customer?.address || 'N/A';
+            const customerInfo = `
+                <div style="line-height:1.4;">
+                    <div style="font-weight:600;color:var(--text);">${cName}</div>
+                    <div style="color:var(--text-muted);font-size:11px;margin-top:2px;">
+                        <i class="fa-solid fa-phone"></i> ${cPhone}
+                    </div>
+                    <div style="color:var(--text-muted);font-size:11px;margin-top:2px;" title="${cAddress}">
+                        <i class="fa-solid fa-location-dot"></i> ${cAddress.length > 20 ? cAddress.slice(0, 20) + '...' : cAddress}
+                    </div>
+                </div>
+            `;
+
             return `
                 <tr>
                     <td><span class="order-id">${o.id}</span></td>
+                    <td>${customerInfo}</td>
                     <td title="${itemsSummary}">${itemsSummary.length > 35 ? itemsSummary.slice(0, 35) + '…' : itemsSummary}</td>
                     <td>৳${(o.total || 0).toFixed(2)}</td>
                     <td>${o.paymentMethod || 'N/A'}</td>

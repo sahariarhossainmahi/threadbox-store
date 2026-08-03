@@ -23,26 +23,26 @@
       "createdAt": "2026-01-01T00:00:00.000Z"
     },
     {
-      "id": "p4",
-      "name": "Sneakers",
-      "price": 79.99,
-      "category": "men",
-      "size": "XXL",
-      "image": "https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=600&q=80",
-      "badge": "Sale",
-      "inStock": true,
-      "createdAt": "2026-01-01T00:00:00.000Z"
-    },
-    {
-      "id": "p_1785750993548_756",
+      "id": "p_1785751763751_449",
       "name": "Shirt",
       "price": 500,
       "category": "men",
       "size": "M",
-      "image": "/assets/uploads/1785750993531.webp",
+      "image": "/assets/uploads/1785751763746.webp",
       "badge": "",
       "inStock": true,
-      "createdAt": "2026-08-03T09:56:33.548Z"
+      "createdAt": "2026-08-03T10:09:23.751Z"
+    },
+    {
+      "id": "p_1785752181910_920",
+      "name": "Shirt",
+      "price": 400,
+      "category": "men",
+      "size": "XXL",
+      "image": "/assets/uploads/1785752181904.png",
+      "badge": "New",
+      "inStock": true,
+      "createdAt": "2026-08-03T10:16:21.910Z"
     }
   ],
   "giftBoxes": [
@@ -111,7 +111,40 @@
       "createdAt": "2026-01-01T00:00:00.000Z"
     }
   ],
-  "orders": [],
+  "orders": [
+    {
+      "id": "ord_1785752212518_416",
+      "items": [
+        {
+          "name": "Shirt",
+          "size": "XXL",
+          "qty": 1,
+          "price": 400
+        }
+      ],
+      "total": 400,
+      "paymentMethod": "cod",
+      "transactionRef": "skv fhvb",
+      "status": "pending",
+      "createdAt": "2026-08-03T10:16:52.518Z"
+    },
+    {
+      "id": "ord_1785751978917_881",
+      "items": [
+        {
+          "name": "Shirt",
+          "size": "M",
+          "qty": 1,
+          "price": 500
+        }
+      ],
+      "total": 500,
+      "paymentMethod": "cod",
+      "transactionRef": "Tajgaon ,dhaka",
+      "status": "pending",
+      "createdAt": "2026-08-03T10:12:58.917Z"
+    }
+  ],
   "settings": {
     "storeName": "ThreadBox",
     "currency": "৳",
