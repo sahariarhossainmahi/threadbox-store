@@ -1509,3 +1509,118 @@ html {
         font-size: 16px;
     }
 }
+
+/* =======================================
+   FULL PROPER MOBILE RESPONSIVENESS
+   ======================================= */
+@media (max-width: 1024px) {
+
+    /* Tablet Grids */
+    .category-grid,
+    .product-grid,
+    .gift-grid,
+    .accessories-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .hero-text h1 {
+        font-size: 50px;
+        line-height: 60px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Navbar Auto-Wrapping for Mobile */
+    .header .nav {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 0;
+    }
+
+    .navbar ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .logo {
+        text-align: center;
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    .nav-icons {
+        justify-content: center;
+        width: 100%;
+        margin-top: 5px;
+    }
+
+    /* Hero Section */
+    .hero-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-text h1 {
+        font-size: 40px;
+        line-height: 50px;
+    }
+
+    .btn {
+        padding: 12px 25px;
+    }
+
+    /* Modals & App Layouts */
+    .checkout-content,
+    .order-confirm-content {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .drawer-content {
+        width: 100%;
+        /* Cart full width on mobile */
+    }
+
+    /* Stack Grids */
+    .category-grid,
+    .product-grid,
+    .gift-grid,
+    .accessories-grid {
+        grid-template-columns: repeat(1, 1fr) !important;
+    }
+
+    /* Checkout sections */
+    .form-row,
+    .payment-options {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-text h1 {
+        font-size: 32px;
+        line-height: 40px;
+    }
+
+    .hero-text p {
+        font-size: 15px;
+    }
+
+    .section-title {
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+
+    .product-card img,
+    .category-card img,
+    .accessory-card img,
+    .gift-image-container {
+        height: 250px !important;
+    }
+
+    .navbar a {
+        font-size: 14px;
+    }
+}
