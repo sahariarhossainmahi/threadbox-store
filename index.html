@@ -387,7 +387,13 @@
                 <!-- Receipt details go here -->
             </div>
 
-            <button class="btn" id="confirm-close-btn" style="margin-top:20px; width:100%;">Continue Shopping</button>
+            <div class="receipt-actions" style="display:flex; gap:10px; margin-top:20px;">
+                <button class="btn" id="download-receipt-btn"
+                    style="flex:1; background:#222; border: 1px solid #222; color:#fff;">
+                    <i class="fa-solid fa-download"></i> Download
+                </button>
+                <button class="btn" id="confirm-close-btn" style="flex:1;">Continue</button>
+            </div>
         </div>
     </div>
 
@@ -397,6 +403,7 @@
     </button>
 
     <!-- JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="assets/js/script.js"></script>
 
 </body>

@@ -113,20 +113,46 @@
   ],
   "orders": [
     {
-      "id": "ord_1785752212518_416",
+      "id": "ord_1785752924136_209",
+      "customer": {
+        "name": "rupom",
+        "phone": "01836075276",
+        "address": "tajgaon,dhaka"
+      },
+      "items": [
+        {
+          "name": "Varsity Jacket",
+          "size": "XL",
+          "qty": 1,
+          "price": 69.99
+        }
+      ],
+      "total": 69.99,
+      "paymentMethod": "cod",
+      "transactionRef": "Cash on Delivery",
+      "status": "pending",
+      "createdAt": "2026-08-03T10:28:44.136Z"
+    },
+    {
+      "id": "ord_1785752835339_907",
+      "customer": {
+        "name": "MD Sahariar hossain Mahi",
+        "phone": "01746616678",
+        "address": "tajgaon,dhaka"
+      },
       "items": [
         {
           "name": "Shirt",
-          "size": "XXL",
+          "size": "M",
           "qty": 1,
-          "price": 400
+          "price": 500
         }
       ],
-      "total": 400,
+      "total": 500,
       "paymentMethod": "cod",
-      "transactionRef": "skv fhvb",
+      "transactionRef": "Cash on Delivery",
       "status": "pending",
-      "createdAt": "2026-08-03T10:16:52.518Z"
+      "createdAt": "2026-08-03T10:27:15.340Z"
     },
     {
       "id": "ord_1785751978917_881",

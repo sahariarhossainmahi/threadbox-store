@@ -361,6 +361,28 @@ placeOrderBtn.addEventListener('click', async function () {
     document.getElementById('nagad-txn').value = '';
 });
 
+// Download Receipt
+document.getElementById('download-receipt-btn').addEventListener('click', function () {
+    const btnGroup = document.querySelector('.receipt-actions');
+    const oldDisplay = btnGroup.style.display;
+
+    // Temporarily hide buttons so they don't show in the image
+    btnGroup.style.display = 'none';
+
+    html2canvas(document.getElementById('receipt-content'), { scale: 2 }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = `ThreadBox-Receipt-${new Date().getTime()}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+
+        // Restore buttons
+        btnGroup.style.display = oldDisplay;
+    }).catch(err => {
+        console.error("Failed to download receipt:", err);
+        btnGroup.style.display = oldDisplay;
+    });
+});
+
 // Close order confirmation
 confirmCloseBtn.addEventListener('click', function () {
     orderConfirmModal.classList.remove('active');
