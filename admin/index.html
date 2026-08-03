@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThreadBox — Admin Panel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body class="login-page">
+
+    <!-- ══════════ LOGIN SCREEN ══════════ -->
+    <div class="login-screen" id="login-screen">
+        <div class="login-box">
+            <div class="login-logo">
+                <i class="fa-solid fa-box-open"></i>
+                <h1>ThreadBox</h1>
+                <p>Admin Panel</p>
+            </div>
+            <form id="login-form">
+                <div class="form-group">
+                    <label><i class="fa-solid fa-lock"></i> Admin Password</label>
+                    <input type="password" id="login-password" placeholder="Enter password" required>
+                </div>
+                <div class="login-error" id="login-error"></div>
+                <button type="submit" class="btn-primary full-width">
+                    <i class="fa-solid fa-right-to-bracket"></i> Login
+                </button>
+            </form>
+            <p class="login-hint">Default password: <strong>admin123</strong></p>
+        </div>
+    </div>
+
+    <!-- ══════════ MAIN ADMIN APP ══════════ -->
+    <div class="admin-app hidden" id="admin-app">
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <i class="fa-solid fa-box-open"></i>
+                <span>ThreadBox</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-page="dashboard">
+                    <i class="fa-solid fa-gauge-high"></i> Dashboard
+                </a>
+                <a href="#" class="nav-item" data-page="products">
+                    <i class="fa-solid fa-shirt"></i> Products
+                </a>
+                <a href="#" class="nav-item" data-page="giftboxes">
+                    <i class="fa-solid fa-gift"></i> Gift Boxes
+                </a>
+                <a href="#" class="nav-item" data-page="accessories">
+                    <i class="fa-solid fa-sunglasses"></i> Accessories
+                </a>
+                <a href="#" class="nav-item" data-page="orders">
+                    <i class="fa-solid fa-bags-shopping"></i> Orders
+                </a>
+                <a href="#" class="nav-item" data-page="settings">
+                    <i class="fa-solid fa-gear"></i> Settings
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="/" target="_blank" class="view-store-btn">
+                    <i class="fa-solid fa-store"></i> View Store
+                </a>
+                <button class="logout-btn" id="logout-btn">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Top Bar -->
+            <div class="topbar">
+                <button class="menu-toggle" id="menu-toggle">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <h2 class="page-title" id="page-title">Dashboard</h2>
+                <div class="topbar-right">
+                    <div class="admin-badge">
+                        <i class="fa-solid fa-circle-user"></i> Admin
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── DASHBOARD PAGE ── -->
+            <section class="page active" id="page-dashboard">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon products-icon"><i class="fa-solid fa-shirt"></i></div>
+                        <div class="stat-info">
+                            <h3 id="stat-products">0</h3>
+                            <p>Total Products</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon gifts-icon"><i class="fa-solid fa-gift"></i></div>
+                        <div class="stat-info">
+                            <h3 id="stat-gifts">0</h3>
+                            <p>Gift Boxes</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon acc-icon"><i class="fa-solid fa-sunglasses"></i></div>
+                        <div class="stat-info">
+                            <h3 id="stat-accessories">0</h3>
+                            <p>Accessories</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon orders-icon"><i class="fa-solid fa-bags-shopping"></i></div>
+                        <div class="stat-info">
+                            <h3 id="stat-orders">0</h3>
+                            <p>Total Orders</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon pending-icon"><i class="fa-solid fa-clock"></i></div>
+                        <div class="stat-info">
+                            <h3 id="stat-pending">0</h3>
+                            <p>Pending Orders</p>
+                        </div>
+                    </div>
+                    <div class="stat-card revenue-card">
+                        <div class="stat-icon revenue-icon"><i class="fa-solid fa-bangladeshi-taka-sign"></i></div>
+                        <div class="stat-info">
+                            <h3 id="stat-revenue">৳0</h3>
+                            <p>Total Revenue</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-recent">
+                    <div class="section-header">
+                        <h3>Recent Orders</h3>
+                    </div>
+                    <div id="recent-orders-list" class="recent-orders-list">
+                        <div class="empty-state"><i class="fa-solid fa-inbox"></i>
+                            <p>No orders yet</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── PRODUCTS PAGE ── -->
+            <section class="page hidden" id="page-products">
+                <div class="section-header">
+                    <h3>Products <span class="count-badge" id="products-count">0</span></h3>
+                    <button class="btn-primary" onclick="openModal('product')">
+                        <i class="fa-solid fa-plus"></i> Add Product
+                    </button>
+                </div>
+                <div class="items-grid" id="products-grid"></div>
+            </section>
+
+            <!-- ── GIFT BOXES PAGE ── -->
+            <section class="page hidden" id="page-giftboxes">
+                <div class="section-header">
+                    <h3>Gift Boxes <span class="count-badge" id="giftboxes-count">0</span></h3>
+                    <button class="btn-primary" onclick="openModal('giftbox')">
+                        <i class="fa-solid fa-plus"></i> Add Gift Box
+                    </button>
+                </div>
+                <div class="items-grid" id="giftboxes-grid"></div>
+            </section>
+
+            <!-- ── ACCESSORIES PAGE ── -->
+            <section class="page hidden" id="page-accessories">
+                <div class="section-header">
+                    <h3>Accessories <span class="count-badge" id="accessories-count">0</span></h3>
+                    <button class="btn-primary" onclick="openModal('accessory')">
+                        <i class="fa-solid fa-plus"></i> Add Accessory
+                    </button>
+                </div>
+                <div class="items-grid" id="accessories-grid"></div>
+            </section>
+
+            <!-- ── ORDERS PAGE ── -->
+            <section class="page hidden" id="page-orders">
+                <div class="section-header">
+                    <h3>Orders <span class="count-badge" id="orders-count">0</span></h3>
+                </div>
+                <div class="orders-table-wrap">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Items</th>
+                                <th>Total</th>
+                                <th>Payment</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-tbody"></tbody>
+                    </table>
+                    <div id="orders-empty" class="empty-state hidden">
+                        <i class="fa-solid fa-inbox"></i>
+                        <p>No orders yet</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── SETTINGS PAGE ── -->
+            <section class="page hidden" id="page-settings">
+                <div class="settings-grid">
+                    <div class="settings-card">
+                        <h3><i class="fa-solid fa-store"></i> Store Settings</h3>
+                        <form id="settings-form">
+                            <div class="form-group">
+                                <label>Store Name</label>
+                                <input type="text" id="s-storeName" placeholder="ThreadBox">
+                            </div>
+                            <div class="form-group">
+                                <label>Currency Symbol</label>
+                                <input type="text" id="s-currency" placeholder="৳">
+                            </div>
+                            <div class="form-group">
+                                <label>Hero Title</label>
+                                <input type="text" id="s-heroTitle" placeholder="SUMMER ESSENTIALS">
+                            </div>
+                            <div class="form-group">
+                                <label>Hero Subtitle</label>
+                                <textarea id="s-heroSubtitle" rows="3" placeholder="Discover premium..."></textarea>
+                            </div>
+                            <button type="submit" class="btn-primary">
+                                <i class="fa-solid fa-floppy-disk"></i> Save Settings
+                            </button>
+                        </form>
+                    </div>
+                    <div class="settings-card">
+                        <h3><i class="fa-solid fa-lock"></i> Change Password</h3>
+                        <form id="password-form">
+                            <div class="form-group">
+                                <label>New Password</label>
+                                <input type="password" id="s-newPassword" placeholder="Enter new password"
+                                    minlength="4">
+                            </div>
+                            <div class="form-group">
+                                <label>Confirm Password</label>
+                                <input type="password" id="s-confirmPassword" placeholder="Confirm password">
+                            </div>
+                            <button type="submit" class="btn-primary">
+                                <i class="fa-solid fa-key"></i> Update Password
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- ══════════ MODALS ══════════ -->
+
+    <!-- Product Modal -->
+    <div class="modal-overlay hidden" id="modal-overlay">
+        <div class="modal" id="modal-product">
+            <div class="modal-header">
+                <h3 id="modal-product-title">Add Product</h3>
+                <button class="modal-close" onclick="closeModal('product')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="product-form" enctype="multipart/form-data">
+                    <input type="hidden" id="product-id">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Product Name *</label>
+                            <input type="text" id="p-name" placeholder="e.g. Oversized Hoodie" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Price (৳) *</label>
+                            <input type="number" id="p-price" placeholder="49.99" step="0.01" min="0" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Size</label>
+                            <select id="p-size">
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                                <option value="XXL">XXL</option>
+                                <option value="Free Size">Free Size</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Badge</label>
+                            <select id="p-badge">
+                                <option value="">None</option>
+                                <option value="New">New</option>
+                                <option value="Sale">Sale</option>
+                                <option value="Hot">Hot</option>
+                                <option value="Limited">Limited</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Image URL</label>
+                        <input type="url" id="p-imageUrl" placeholder="https://...">
+                    </div>
+                    <div class="form-group">
+                        <label>Or Upload Image</label>
+                        <div class="file-drop" id="p-file-drop">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                            <p>Click to upload image</p>
+                            <input type="file" id="p-image" accept="image/*">
+                        </div>
+                        <div class="img-preview" id="p-img-preview"></div>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label><input type="checkbox" id="p-inStock" checked> In Stock</label>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn-secondary" onclick="closeModal('product')">Cancel</button>
+                        <button type="submit" class="btn-primary" id="product-submit-btn">
+                            <i class="fa-solid fa-plus"></i> Add Product
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Gift Box Modal -->
+        <div class="modal hidden" id="modal-giftbox">
+            <div class="modal-header">
+                <h3 id="modal-giftbox-title">Add Gift Box</h3>
+                <button class="modal-close" onclick="closeModal('giftbox')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="giftbox-form">
+                    <input type="hidden" id="giftbox-id">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Name *</label>
+                            <input type="text" id="g-name" placeholder="e.g. Signature Box" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Price (৳) *</label>
+                            <input type="number" id="g-price" placeholder="89.99" step="0.01" min="0" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="g-description" rows="3" placeholder="Luxury assortment..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Badge</label>
+                        <select id="g-badge">
+                            <option value="">None</option>
+                            <option value="Best Seller">Best Seller</option>
+                            <option value="Trending">Trending</option>
+                            <option value="New">New</option>
+                            <option value="Limited">Limited</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Image URL</label>
+                        <input type="url" id="g-imageUrl" placeholder="https://...">
+                    </div>
+                    <div class="form-group">
+                        <label>Or Upload Image</label>
+                        <div class="file-drop" id="g-file-drop">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                            <p>Click to upload image</p>
+                            <input type="file" id="g-image" accept="image/*">
+                        </div>
+                        <div class="img-preview" id="g-img-preview"></div>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label><input type="checkbox" id="g-inStock" checked> In Stock</label>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn-secondary" onclick="closeModal('giftbox')">Cancel</button>
+                        <button type="submit" class="btn-primary" id="giftbox-submit-btn">
+                            <i class="fa-solid fa-plus"></i> Add Gift Box
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Accessory Modal -->
+        <div class="modal hidden" id="modal-accessory">
+            <div class="modal-header">
+                <h3 id="modal-accessory-title">Add Accessory</h3>
+                <button class="modal-close" onclick="closeModal('accessory')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="accessory-form">
+                    <input type="hidden" id="accessory-id">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Name *</label>
+                            <input type="text" id="ac-name" placeholder="e.g. Leather Wallet" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Price (৳) *</label>
+                            <input type="number" id="ac-price" placeholder="35.00" step="0.01" min="0" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Image URL</label>
+                        <input type="url" id="ac-imageUrl" placeholder="https://...">
+                    </div>
+                    <div class="form-group">
+                        <label>Or Upload Image</label>
+                        <div class="file-drop" id="ac-file-drop">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                            <p>Click to upload image</p>
+                            <input type="file" id="ac-image" accept="image/*">
+                        </div>
+                        <div class="img-preview" id="ac-img-preview"></div>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label><input type="checkbox" id="ac-inStock" checked> In Stock</label>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn-secondary" onclick="closeModal('accessory')">Cancel</button>
+                        <button type="submit" class="btn-primary" id="accessory-submit-btn">
+                            <i class="fa-solid fa-plus"></i> Add Accessory
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Confirm Delete Modal -->
+        <div class="modal modal-sm hidden" id="modal-delete">
+            <div class="modal-header danger">
+                <h3><i class="fa-solid fa-triangle-exclamation"></i> Confirm Delete</h3>
+                <button class="modal-close" onclick="closeDeleteModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <p id="delete-message">Are you sure?</p>
+                <div class="modal-actions">
+                    <button class="btn-secondary" onclick="closeDeleteModal()">Cancel</button>
+                    <button class="btn-danger" id="confirm-delete-btn">
+                        <i class="fa-solid fa-trash"></i> Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="admin.js"></script>
+</body>
+
+</html>

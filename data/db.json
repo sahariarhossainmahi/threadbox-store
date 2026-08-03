@@ -1,0 +1,122 @@
+{
+    "products": [
+        {
+            "id": "p1",
+            "name": "Oversized Hoodie",
+            "price": 49.99,
+            "category": "men",
+            "size": "M",
+            "image": "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=600&q=80",
+            "badge": "",
+            "inStock": true,
+            "createdAt": "2026-01-01T00:00:00.000Z"
+        },
+        {
+            "id": "p2",
+            "name": "Premium T-Shirt",
+            "price": 29.99,
+            "category": "men",
+            "size": "L",
+            "image": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80",
+            "badge": "",
+            "inStock": true,
+            "createdAt": "2026-01-01T00:00:00.000Z"
+        },
+        {
+            "id": "p3",
+            "name": "Varsity Jacket",
+            "price": 69.99,
+            "category": "men",
+            "size": "XL",
+            "image": "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=600&q=80",
+            "badge": "New",
+            "inStock": true,
+            "createdAt": "2026-01-01T00:00:00.000Z"
+        },
+        {
+            "id": "p4",
+            "name": "Sneakers",
+            "price": 79.99,
+            "category": "men",
+            "size": "XXL",
+            "image": "https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=600&q=80",
+            "badge": "Sale",
+            "inStock": true,
+            "createdAt": "2026-01-01T00:00:00.000Z"
+        }
+    ],
+    "giftBoxes": [
+        {
+            "id": "g1",
+            "name": "Signature Box",
+            "price": 89.99,
+            "description": "Luxury assortment of gourmet chocolate, custom mug, and scented candles.",
+            "image": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=650&q=80",
+            "badge": "Best Seller",
+            "inStock": true,
+            "createdAt": "2026-01-01T00:00:00.000Z"
+        },
+        {
+            "id": "g2",
+            "name": "Spa Day Experience",
+            "price": 75.00,
+            "description": "Unwind with organic essential oils, body scrub, and plush towels.",
+            "image": "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=650&q=80",
+            "badge": "Trending",
+            "inStock": true,
+            "createdAt": "2026-01-01T00:00:00.000Z"
+        },
+        {
+            "id": "g3",
+            "name": "Gourmet Coffee Box",
+            "price": 60.00,
+            "description": "A handpicked selection of single-origin coffee beans, press, and scoop.",
+            "image": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=650&q=80",
+            "badge": "",
+            "inStock": true,
+            "createdAt": "2026-01-01T00:00:00.000Z"
+        }
+    ],
+    "accessories": [
+        {
+            "id": "a1",
+            "name": "Minimalist Leather Wallet",
+            "price": 35.00,
+            "image": "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=600&q=80",
+            "inStock": true,
+            "createdAt": "2026-01-01T00:00:00.000Z"
+        },
+        {
+            "id": "a2",
+            "name": "Classic Chronograph Watch",
+            "price": 120.00,
+            "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80",
+            "inStock": true,
+            "createdAt": "2026-01-01T00:00:00.000Z"
+        },
+        {
+            "id": "a3",
+            "name": "Polarized Aviator Sunglasses",
+            "price": 45.00,
+            "image": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=600&q=80",
+            "inStock": true,
+            "createdAt": "2026-01-01T00:00:00.000Z"
+        },
+        {
+            "id": "a4",
+            "name": "Split-Leather Dress Belt",
+            "price": 29.99,
+            "image": "https://images.unsplash.com/photo-1524498250077-390f9e378fc0?auto=format&fit=crop&w=600&q=80",
+            "inStock": true,
+            "createdAt": "2026-01-01T00:00:00.000Z"
+        }
+    ],
+    "orders": [],
+    "settings": {
+        "storeName": "ThreadBox",
+        "currency": "৳",
+        "heroTitle": "SUMMER ESSENTIALS",
+        "heroSubtitle": "Discover premium fashion collections and exclusive gift boxes designed for every occasion.",
+        "adminPassword": "admin123"
+    }
+}

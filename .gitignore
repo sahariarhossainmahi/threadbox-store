@@ -1,0 +1,14 @@
+# Node
+node_modules/
+npm-debug.log*
+
+# Uploads (user-uploaded images)
+assets/uploads/
+
+# Environment
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db

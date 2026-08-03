@@ -215,39 +215,55 @@ document.querySelectorAll('input[name="payment"]').forEach(radio => {
 });
 
 // ============================================
-// PLACE ORDER
+// PLACE ORDER  (saves to backend)
 // ============================================
-placeOrderBtn.addEventListener('click', function () {
+placeOrderBtn.addEventListener('click', async function () {
     const selectedPayment = document.querySelector('input[name="payment"]:checked');
     if (!selectedPayment) return;
 
     const method = selectedPayment.value;
+    let txnRef = '';
     let message = '';
 
     if (method === 'bkash') {
-        const txn = document.getElementById('bkash-txn').value.trim();
-        if (!txn) { alert('Please enter your bKash Transaction ID.'); return; }
-        message = `Your order has been placed successfully via bKash.\nTransaction ID: ${txn}\nWe will verify your payment and confirm shortly.`;
+        txnRef = document.getElementById('bkash-txn').value.trim();
+        if (!txnRef) { alert('Please enter your bKash Transaction ID.'); return; }
+        message = `Your order has been placed successfully via bKash.\nTransaction ID: ${txnRef}\nWe will verify your payment and confirm shortly.`;
     } else if (method === 'nagad') {
-        const txn = document.getElementById('nagad-txn').value.trim();
-        if (!txn) { alert('Please enter your Nagad Transaction ID.'); return; }
-        message = `Your order has been placed successfully via Nagad.\nTransaction ID: ${txn}\nWe will verify your payment and confirm shortly.`;
+        txnRef = document.getElementById('nagad-txn').value.trim();
+        if (!txnRef) { alert('Please enter your Nagad Transaction ID.'); return; }
+        message = `Your order has been placed successfully via Nagad.\nTransaction ID: ${txnRef}\nWe will verify your payment and confirm shortly.`;
     } else if (method === 'cod') {
-        const addr = document.getElementById('cod-address').value.trim();
-        if (!addr) { alert('Please enter your delivery address.'); return; }
-        message = `Your order has been placed with Cash on Delivery.\nDelivery Address: ${addr}\nPay when you receive your order.`;
+        txnRef = document.getElementById('cod-address').value.trim();
+        if (!txnRef) { alert('Please enter your delivery address.'); return; }
+        message = `Your order has been placed with Cash on Delivery.\nDelivery Address: ${txnRef}\nPay when you receive your order.`;
     }
+
+    const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+    const orderPayload = {
+        items: cart.map(i => ({ name: i.name, size: i.size, qty: i.qty, price: i.price })),
+        total: parseFloat(total.toFixed(2)),
+        paymentMethod: method,
+        transactionRef: txnRef,
+    };
+
+    // Save order to backend (non-blocking — store will work even if server is offline)
+    try {
+        await fetch('http://localhost:3000/api/orders', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(orderPayload)
+        });
+    } catch { /* server not running — order still shown to customer */ }
 
     // Close checkout, show order confirmation
     closeCheckoutModal();
     confirmMessage.textContent = message;
     orderConfirmModal.classList.add('active');
 
-    // Clear cart
+    // Clear cart & inputs
     cart = [];
     updateCartUI();
-
-    // Clear input fields
     document.getElementById('bkash-txn').value = '';
     document.getElementById('nagad-txn').value = '';
     document.getElementById('cod-address').value = '';
@@ -256,4 +272,25 @@ placeOrderBtn.addEventListener('click', function () {
 // Close order confirmation
 confirmCloseBtn.addEventListener('click', function () {
     orderConfirmModal.classList.remove('active');
+});
+
+// ============================================
+// BACK TO TOP BUTTON
+// ============================================
+const backToTopBtn = document.getElementById('back-to-top');
+
+function handleBackToTopVisibility() {
+    const scrolled = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
+    if (scrolled > 300) {
+        backToTopBtn.classList.add('visible');
+    } else {
+        backToTopBtn.classList.remove('visible');
+    }
+}
+
+window.addEventListener('scroll', handleBackToTopVisibility, { passive: true });
+document.addEventListener('scroll', handleBackToTopVisibility, { passive: true });
+
+backToTopBtn.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 });
