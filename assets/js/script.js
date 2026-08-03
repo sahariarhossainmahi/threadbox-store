@@ -82,20 +82,93 @@ function addToCart(name, price, image, size) {
     openCartDrawer();
 }
 
-// Attach event listeners to all "Add To Cart" buttons
-document.querySelectorAll('.product-card button, .gift-btn').forEach(btn => {
-    btn.addEventListener('click', function (e) {
+// Attach event listeners to all "Add To Cart" buttons via Event Delegation
+document.addEventListener('click', function (e) {
+    if (e.target.matches('.product-card button') || e.target.matches('.gift-btn')) {
         e.preventDefault();
-        const card = this.closest('.product-card') || this.closest('.gift-card');
+        const card = e.target.closest('.product-card') || e.target.closest('.gift-card') || e.target.closest('.accessory-card');
         if (!card) return;
         const name = card.querySelector('h3').textContent;
-        const priceText = card.querySelector('p')?.textContent || card.querySelector('.gift-price')?.textContent || '0';
+        const priceText = card.querySelector('p:not(.accessory-price)')?.textContent || card.querySelector('.gift-price')?.textContent || card.querySelector('.accessory-price')?.textContent || '0';
         const price = priceText.replace(/[^0-9.]/g, '');
         const image = card.querySelector('img')?.src || '';
         const size = card.getAttribute('data-size') || 'N/A';
         addToCart(name, price, image, size.toUpperCase());
-    });
+    }
 });
+
+// ============================================
+// FETCH DATA FROM BACKEND
+// ============================================
+async function loadFrontendData() {
+    try {
+        const pRes = await fetch('http://localhost:3000/api/products');
+        const products = await pRes.json();
+
+        const gRes = await fetch('http://localhost:3000/api/giftboxes');
+        const giftBoxes = await gRes.json();
+
+        const aRes = await fetch('http://localhost:3000/api/accessories');
+        const accessories = await aRes.json();
+
+        // Render Products
+        const pGrid = document.getElementById('dynamic-product-grid');
+        if (pGrid) {
+            pGrid.innerHTML = products.map(p => `
+                <div class="product-card" data-size="${p.size.toLowerCase()}">
+                    <div class="product-image-container">
+                        <img src="${p.image}" alt="${p.name}">
+                        <span class="product-size-badge">Size ${p.size}</span>
+                        ${p.badge ? `<span class="product-size-badge" style="top:15px;right:15px;background:#e74c3c;color:#fff;">${p.badge}</span>` : ''}
+                    </div>
+                    <h3>${p.name}</h3>
+                    <p>৳${p.price.toFixed(2)}</p>
+                    <button>Add To Cart</button>
+                </div>
+            `).join('');
+        }
+
+        // Render Gift Boxes
+        const gGrid = document.getElementById('dynamic-gift-grid');
+        if (gGrid) {
+            gGrid.innerHTML = giftBoxes.map(g => `
+                <div class="gift-card">
+                    <div class="gift-image-container">
+                        <img src="${g.image}" alt="${g.name}">
+                        ${g.badge ? `<span class="gift-badge">${g.badge}</span>` : ''}
+                    </div>
+                    <div class="gift-content">
+                        <h3>${g.name}</h3>
+                        <p>${g.description}</p>
+                        <span class="gift-price">৳${g.price.toFixed(2)}</span>
+                        <button class="gift-btn">Customize Box</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render Accessories
+        const aGrid = document.getElementById('dynamic-accessories-grid');
+        if (aGrid) {
+            aGrid.innerHTML = accessories.map(a => `
+                <div class="accessory-card">
+                    <img src="${a.image}" alt="${a.name}">
+                    <div class="accessory-info">
+                        <h3>${a.name}</h3>
+                        <p class="accessory-price">৳${a.price.toFixed(2)}</p>
+                        <button class="gift-btn" style="margin-top:10px;padding:8px 12px;font-size:12px;">Add to Cart</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+    } catch (err) {
+        console.error("Failed to load data from backend:", err);
+    }
+}
+
+// Load data when page loads
+document.addEventListener('DOMContentLoaded', loadFrontendData);
 
 // ============================================
 // RENDER CART UI
