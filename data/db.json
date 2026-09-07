@@ -21,6 +21,17 @@
       "badge": "New",
       "inStock": true,
       "createdAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "p_1785754284939_9",
+      "name": "Shirt",
+      "price": 400,
+      "category": "men",
+      "size": "M",
+      "image": "/assets/uploads/1785754284936.webp",
+      "badge": "Limited",
+      "inStock": true,
+      "createdAt": "2026-08-03T10:51:24.939Z"
     }
   ],
   "giftBoxes": [

@@ -1,6 +1,17 @@
 console.log("Welcome to ThreadBox");
 
 // ============================================
+// SHOP NOW SCROLL
+// ============================================
+function shopNowScroll(e) {
+    e.preventDefault();
+    const productsSection = document.querySelector('.products');
+    if (productsSection) {
+        productsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+// ============================================
 // SIZE FILTER
 // ============================================
 function filterSize(size) {
@@ -66,6 +77,7 @@ cartClose.addEventListener('click', closeCartDrawer);
 overlayBackdrop.addEventListener('click', () => {
     closeCartDrawer();
     closeCheckoutModal();
+    closeSearchModal();
 });
 
 // ============================================
@@ -169,6 +181,139 @@ async function loadFrontendData() {
 
 // Load data when page loads
 document.addEventListener('DOMContentLoaded', loadFrontendData);
+
+// ============================================
+// SEARCH FUNCTIONALITY
+// ============================================
+let allSearchableItems = []; // Will be populated after data loads
+
+const searchIcon = document.getElementById('search-icon');
+const searchModal = document.getElementById('search-modal');
+const searchInput = document.getElementById('search-input');
+const searchResults = document.getElementById('search-results');
+const searchCloseBtn = document.getElementById('search-close-btn');
+const searchClearBtn = document.getElementById('search-clear-btn');
+
+function openSearchModal() {
+    searchModal.classList.add('active');
+    overlayBackdrop.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => searchInput.focus(), 100);
+}
+
+function closeSearchModal() {
+    searchModal.classList.remove('active');
+    overlayBackdrop.classList.remove('active');
+    document.body.style.overflow = '';
+    searchInput.value = '';
+    searchResults.innerHTML = `
+        <div class="search-placeholder">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <p>Start typing to search products</p>
+        </div>`;
+}
+
+searchIcon.addEventListener('click', openSearchModal);
+searchCloseBtn.addEventListener('click', closeSearchModal);
+searchClearBtn.addEventListener('click', () => {
+    searchInput.value = '';
+    searchInput.focus();
+    searchResults.innerHTML = `
+        <div class="search-placeholder">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <p>Start typing to search products</p>
+        </div>`;
+});
+
+
+
+// Live Search
+searchInput.addEventListener('input', function () {
+    const query = this.value.trim().toLowerCase();
+    if (!query) {
+        searchResults.innerHTML = `
+            <div class="search-placeholder">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <p>Start typing to search products</p>
+            </div>`;
+        return;
+    }
+
+    const matches = allSearchableItems.filter(item =>
+        item.name.toLowerCase().includes(query) ||
+        (item.description && item.description.toLowerCase().includes(query)) ||
+        (item.category && item.category.toLowerCase().includes(query))
+    );
+
+    if (matches.length === 0) {
+        searchResults.innerHTML = `
+            <div class="search-placeholder">
+                <i class="fa-solid fa-face-frown"></i>
+                <p>No products found for "${query}"</p>
+            </div>`;
+        return;
+    }
+
+    searchResults.innerHTML = matches.map(item => `
+        <div class="search-result-item" onclick="goToProduct('${item.section}', '${item.name.replace(/'/g, "\\'")}')"> 
+            <div class="search-result-img">
+                <img src="${item.image}" alt="${item.name}">
+            </div>
+            <div class="search-result-info">
+                <h4>${item.name}</h4>
+                <span class="search-result-category">${item.category}</span>
+                <span class="search-result-price">৳${parseFloat(item.price).toFixed(2)}</span>
+            </div>
+            <i class="fa-solid fa-arrow-right search-result-arrow"></i>
+        </div>
+    `).join('');
+});
+
+function goToProduct(section, name) {
+    closeSearchModal();
+    setTimeout(() => {
+        const sectionEl = document.querySelector(section);
+        if (sectionEl) {
+            sectionEl.scrollIntoView({ behavior: 'smooth' });
+        }
+        // Highlight matching card
+        setTimeout(() => {
+            const allCards = document.querySelectorAll('.product-card, .gift-card, .accessory-card');
+            allCards.forEach(card => {
+                const h3 = card.querySelector('h3');
+                if (h3 && h3.textContent.trim() === name) {
+                    card.classList.add('search-highlight');
+                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    setTimeout(() => card.classList.remove('search-highlight'), 2000);
+                }
+            });
+        }, 600);
+    }, 300);
+}
+
+// Populate searchable items after data loads
+async function loadSearchData() {
+    try {
+        const [pRes, gRes, aRes] = await Promise.all([
+            fetch('http://localhost:3000/api/products'),
+            fetch('http://localhost:3000/api/giftboxes'),
+            fetch('http://localhost:3000/api/accessories')
+        ]);
+        const products = await pRes.json();
+        const giftBoxes = await gRes.json();
+        const accessories = await aRes.json();
+
+        allSearchableItems = [
+            ...products.map(p => ({ ...p, category: `Men's Clothing - Size ${p.size}`, section: '.products' })),
+            ...giftBoxes.map(g => ({ ...g, category: 'Gift Box', section: '#gift-box' })),
+            ...accessories.map(a => ({ ...a, category: 'Accessories', section: '#accessories' }))
+        ];
+    } catch (err) {
+        console.error('Search data load failed:', err);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', loadSearchData);
 
 // ============================================
 // RENDER CART UI

@@ -68,8 +68,6 @@
 
     </header>
 
-    </header>
-
     <section class="hero">
 
         <div class="container hero-container">
@@ -88,7 +86,7 @@
                     designed for every occasion.
                 </p>
 
-                <a href="#" class="btn">
+                <a href="#dynamic-product-grid" class="btn" id="shop-now-btn" onclick="shopNowScroll(event)">
                     Shop Now
                 </a>
 
@@ -276,6 +274,28 @@
             </div>
         </div>
     </footer>
+
+    <!-- Search Modal -->
+    <div class="search-modal" id="search-modal">
+        <div class="search-modal-inner">
+            <div class="search-modal-header">
+                <div class="search-input-wrapper">
+                    <i class="fa-solid fa-magnifying-glass search-input-icon"></i>
+                    <input type="text" id="search-input" class="search-input-field"
+                        placeholder="Search for products, gift boxes, accessories..." autocomplete="off">
+                    <button class="search-clear-btn" id="search-clear-btn"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <button class="search-close-btn" id="search-close-btn"><i class="fa-solid fa-arrow-left"></i>
+                    Close</button>
+            </div>
+            <div class="search-results" id="search-results">
+                <div class="search-placeholder">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <p>Start typing to search products</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Overlay Backdrop -->
     <div class="overlay-backdrop" id="overlay-backdrop"></div>
