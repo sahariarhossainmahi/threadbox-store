@@ -91,6 +91,7 @@ async function loadAll() {
     loadAccessories();
     loadOrders();
     loadSettings();
+    loadEmployees();
 }
 
 // ─── Stats ───────────────────────────────────────────────
@@ -358,6 +359,91 @@ async function editAccessory(id) {
 }
 
 // ════════════════════════════════════════════════════════════
+//  EMPLOYEES
+// ════════════════════════════════════════════════════════════
+async function loadEmployees() {
+    try {
+        const res = await fetch(`${API}/employees`);
+        const emps = await res.json();
+        document.getElementById('employees-count').textContent = emps.length;
+        const grid = document.getElementById('employees-grid');
+        if (!emps.length) {
+            grid.innerHTML = `<div class="empty-state"><i class="fa-solid fa-users"></i><p>No employees yet.</p></div>`;
+            return;
+        }
+        grid.innerHTML = emps.map(e => `
+            <div class="item-card">
+                <div class="item-card-img">
+                    <img src="${e.imageUrl || 'https://via.placeholder.com/300x200?text=No+Photo'}" alt="${e.name}" onerror="this.src='https://via.placeholder.com/300x200?text=No+Photo'">
+                </div>
+                <div class="item-card-body">
+                    <h4>${e.name}</h4>
+                    <div class="item-meta">
+                        <span class="item-size-tag" style="background:var(--gold);color:#000;">${e.position}</span>
+                    </div>
+                    <p class="item-desc" style="font-size:12px;margin-bottom:0;"><i class="fa-solid fa-phone"></i> ${e.phone || 'N/A'}</p>
+                    <p class="item-desc" style="font-size:12px;margin-bottom:0;"><i class="fa-solid fa-envelope"></i> ${e.email || 'N/A'}</p>
+                    <p class="item-desc" style="font-size:12px;margin-bottom:10px;"><i class="fa-solid fa-money-bill"></i> Salary: ৳${(e.salary || 0).toFixed(2)}</p>
+                    <div class="item-actions">
+                        <button class="btn-edit" onclick="editEmployee('${e.id}')"><i class="fa-solid fa-pen"></i> Edit</button>
+                        <button class="btn-delete" onclick="askDelete('employee','${e.id}','${e.name}')"><i class="fa-solid fa-trash"></i> Delete</button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    } catch { showToast('Failed to load employees', 'error'); }
+}
+
+document.getElementById('employee-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const id = document.getElementById('employee-id').value;
+    const formData = new FormData();
+    formData.append('name', document.getElementById('e-name').value);
+    formData.append('position', document.getElementById('e-position').value);
+    formData.append('phone', document.getElementById('e-phone').value);
+    formData.append('email', document.getElementById('e-email').value);
+    formData.append('salary', document.getElementById('e-salary').value);
+
+    const imageUrl = document.getElementById('e-imageUrl').value;
+    const imageFile = document.getElementById('e-image').files[0];
+    if (imageFile) formData.append('image', imageFile);
+    else if (imageUrl) formData.append('imageUrl', imageUrl);
+
+    const url = id ? `${API}/employees/${id}` : `${API}/employees`;
+    const method = id ? 'PUT' : 'POST';
+    try {
+        const res = await fetch(url, { method, body: formData });
+        const data = await res.json();
+        if (data.success) {
+            showToast(id ? 'Employee updated!' : 'Employee added!', 'success');
+            closeModal('employee');
+            loadEmployees();
+        } else { showToast(data.message || 'Error', 'error'); }
+    } catch { showToast('Server error', 'error'); }
+});
+
+async function editEmployee(id) {
+    try {
+        const res = await fetch(`${API}/employees`);
+        const emps = await res.json();
+        const e = emps.find(x => x.id === id);
+        if (!e) return;
+        document.getElementById('employee-id').value = e.id;
+        document.getElementById('e-name').value = e.name;
+        document.getElementById('e-position').value = e.position;
+        document.getElementById('e-phone').value = e.phone || '';
+        document.getElementById('e-email').value = e.email || '';
+        document.getElementById('e-salary').value = e.salary || '';
+        document.getElementById('e-imageUrl').value = typeof e.imageUrl === 'string' && e.imageUrl.startsWith('http') ? e.imageUrl : '';
+        const prev = document.getElementById('e-img-preview');
+        prev.innerHTML = e.imageUrl ? `<img src="${e.imageUrl}" alt="preview">` : '';
+        document.getElementById('modal-employee-title').textContent = 'Edit Employee';
+        document.getElementById('employee-submit-btn').innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save Changes';
+        openModal('employee');
+    } catch { showToast('Failed to load employee', 'error'); }
+}
+
+// ════════════════════════════════════════════════════════════
 //  ORDERS
 // ════════════════════════════════════════════════════════════
 async function loadOrders() {
@@ -503,7 +589,7 @@ document.getElementById('password-form').addEventListener('submit', async (e) =>
 function askDelete(type, id, name) {
     document.getElementById('delete-message').textContent = `Are you sure you want to delete "${name}"? This cannot be undone.`;
     deleteCallback = async () => {
-        const endpoints = { product: 'products', giftbox: 'giftboxes', accessory: 'accessories', order: 'orders' };
+        const endpoints = { product: 'products', giftbox: 'giftboxes', accessory: 'accessories', order: 'orders', employee: 'employees' };
         const endpoint = endpoints[type];
         if (!endpoint) return;
         try {
@@ -514,6 +600,7 @@ function askDelete(type, id, name) {
             if (type === 'giftbox') { loadGiftBoxes(); loadStats(); }
             if (type === 'accessory') { loadAccessories(); loadStats(); }
             if (type === 'order') { loadOrders(); loadStats(); }
+            if (type === 'employee') { loadEmployees(); }
         } catch { showToast('Delete failed', 'error'); }
     };
     openModal('delete');
@@ -543,18 +630,19 @@ function closeModal(type) {
     const anyVisible = [...document.querySelectorAll('.modal')].some(m => !m.classList.contains('hidden'));
     if (!anyVisible) document.getElementById('modal-overlay').classList.add('hidden');
     // Reset forms
-    const formIds = { product: 'product-form', giftbox: 'giftbox-form', accessory: 'accessory-form' };
+    const formIds = { product: 'product-form', giftbox: 'giftbox-form', accessory: 'accessory-form', employee: 'employee-form' };
     if (formIds[type]) {
         document.getElementById(formIds[type]).reset();
-        document.getElementById(`${type === 'product' ? 'p' : type === 'giftbox' ? 'g' : 'ac'}-img-preview`).innerHTML = '';
+        document.getElementById(`${type === 'product' ? 'p' : type === 'giftbox' ? 'g' : type === 'accessory' ? 'ac' : 'e'}-img-preview`).innerHTML = '';
         document.getElementById(`${type}-id`).value = '';
     }
     // Reset modal titles
-    const titles = { product: 'Add Product', giftbox: 'Add Gift Box', accessory: 'Add Accessory' };
+    const titles = { product: 'Add Product', giftbox: 'Add Gift Box', accessory: 'Add Accessory', employee: 'Add Employee' };
     const submitBtns = {
         product: '<i class="fa-solid fa-plus"></i> Add Product',
         giftbox: '<i class="fa-solid fa-plus"></i> Add Gift Box',
-        accessory: '<i class="fa-solid fa-plus"></i> Add Accessory'
+        accessory: '<i class="fa-solid fa-plus"></i> Add Accessory',
+        employee: '<i class="fa-solid fa-plus"></i> Add Employee'
     };
     if (titles[type]) {
         document.getElementById(`modal-${type}-title`).textContent = titles[type];
@@ -586,3 +674,4 @@ function setupImagePreview(fileInputId, previewId) {
 setupImagePreview('p-image', 'p-img-preview');
 setupImagePreview('g-image', 'g-img-preview');
 setupImagePreview('ac-image', 'ac-img-preview');
+setupImagePreview('e-image', 'e-img-preview');

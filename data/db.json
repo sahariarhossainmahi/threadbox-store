@@ -46,16 +46,6 @@
       "createdAt": "2026-01-01T00:00:00.000Z"
     },
     {
-      "id": "g2",
-      "name": "Spa Day Experience",
-      "price": 750,
-      "description": "Unwind with organic essential oils, body scrub, and plush towels.",
-      "image": "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=650&q=80",
-      "badge": "Trending",
-      "inStock": true,
-      "createdAt": "2026-01-01T00:00:00.000Z"
-    },
-    {
       "id": "g3",
       "name": "Gourmet Coffee Box",
       "price": 60,
@@ -64,6 +54,16 @@
       "badge": "",
       "inStock": true,
       "createdAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "g_1788776308706_43",
+      "name": "Corporet Gift Box",
+      "price": 510,
+      "description": "",
+      "image": "/assets/uploads/1788776308696.png",
+      "badge": "New",
+      "inStock": true,
+      "createdAt": "2026-09-07T10:18:28.707Z"
     }
   ],
   "accessories": [
@@ -100,29 +100,7 @@
       "createdAt": "2026-01-01T00:00:00.000Z"
     }
   ],
-  "orders": [
-    {
-      "id": "ord_1785753506252_968",
-      "customer": {
-        "name": "MD Sahariar hossain Mahi",
-        "phone": "0123456789",
-        "address": "tajgaon,dhaka"
-      },
-      "items": [
-        {
-          "name": "Varsity Jacket",
-          "size": "XL",
-          "qty": 1,
-          "price": 69.99
-        }
-      ],
-      "total": 69.99,
-      "paymentMethod": "cod",
-      "transactionRef": "Cash on Delivery",
-      "status": "pending",
-      "createdAt": "2026-08-03T10:38:26.253Z"
-    }
-  ],
+  "orders": [],
   "settings": {
     "storeName": "ThreadBox",
     "currency": "৳",

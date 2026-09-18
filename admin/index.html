@@ -61,6 +61,9 @@
                 <a href="#" class="nav-item" data-page="orders">
                     <i class="fa-solid fa-bags-shopping"></i> Orders
                 </a>
+                <a href="#" class="nav-item" data-page="employees">
+                    <i class="fa-solid fa-users"></i> Employees
+                </a>
                 <a href="#" class="nav-item" data-page="settings">
                     <i class="fa-solid fa-gear"></i> Settings
                 </a>
@@ -209,6 +212,17 @@
                         <p>No orders yet</p>
                     </div>
                 </div>
+            </section>
+
+            <!-- ── EMPLOYEES PAGE ── -->
+            <section class="page hidden" id="page-employees">
+                <div class="section-header">
+                    <h3>Employees <span class="count-badge" id="employees-count">0</span></h3>
+                    <button class="btn-primary" onclick="openModal('employee')">
+                        <i class="fa-solid fa-plus"></i> Add Employee
+                    </button>
+                </div>
+                <div class="items-grid" id="employees-grid"></div>
             </section>
 
             <!-- ── SETTINGS PAGE ── -->
@@ -429,6 +443,62 @@
                         <button type="button" class="btn-secondary" onclick="closeModal('accessory')">Cancel</button>
                         <button type="submit" class="btn-primary" id="accessory-submit-btn">
                             <i class="fa-solid fa-plus"></i> Add Accessory
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Employee Modal -->
+        <div class="modal hidden" id="modal-employee">
+            <div class="modal-header">
+                <h3 id="modal-employee-title">Add Employee</h3>
+                <button class="modal-close" onclick="closeModal('employee')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="employee-form" enctype="multipart/form-data">
+                    <input type="hidden" id="employee-id">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Name *</label>
+                            <input type="text" id="e-name" placeholder="e.g. John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Position *</label>
+                            <input type="text" id="e-position" placeholder="e.g. Store Manager" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="text" id="e-phone" placeholder="01XXX-XXXXXX">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="e-email" placeholder="john@example.com">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Salary (৳)</label>
+                        <input type="number" id="e-salary" placeholder="15000" step="0.01" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Image URL</label>
+                        <input type="url" id="e-imageUrl" placeholder="https://...">
+                    </div>
+                    <div class="form-group">
+                        <label>Or Upload Photo</label>
+                        <div class="file-drop" id="e-file-drop">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                            <p>Click to upload image</p>
+                            <input type="file" id="e-image" accept="image/*">
+                        </div>
+                        <div class="img-preview" id="e-img-preview"></div>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn-secondary" onclick="closeModal('employee')">Cancel</button>
+                        <button type="submit" class="btn-primary" id="employee-submit-btn">
+                            <i class="fa-solid fa-plus"></i> Add Employee
                         </button>
                     </div>
                 </form>
